@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@*----------------------Inicio Modals---------------------*@
+
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Productos</h2>
+            </div>
+
+            <div class="modal-body">
+                <form id="proveedorForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Nombre del Producto</label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="nombre" name="nombre" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Precio Unitario</label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="precio" name="precio" autocomplete="off" type="number" step=".01" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Cantidad</label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="cantidad" name="cantidad" autocomplete="off" type="number" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Detalle</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" id="detalle" name="detalle" autocomplete="off" maxlength="40" ></textarea>
+                        </div>
+                    </div>
+                </form>
+                <br />
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="eliminarModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirmar</h2>
+            </div>
+            <div class="modal-body">
+                <h3>¿ Estas seguro de eliminar el producto ?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnEliminar">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*----------------------Fin Modals---------------------*@
+
+
+
+<div class="row">
+    <h3 class="col-md-8">Lista de Productos</h3>
+
+    <div class="btn-toolbar pull-right" style="padding-top:15px">
+        <button type="button" class="btn btn-primary" id="btnAgregar">Agregar</button>
+        <button type="button" class="btn btn-success" id="btnRefrescar" style="margin-right: 15px;">Actualizar</button>
+    </div>
+
+</div>
+
+<br />
+
+    <table class="table table-bordered table-striped" id="tabla_proveedor">
+        <thead class="bg-primary">
+            <tr>
+                <th>Producto</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Fecha Registro</th>
+                <th>Detalle</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="bodytable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.nombre_producto</td>
+                    <td>@item.precio_unitario</td>
+                    <td>@item.cantidad</td>
+                    <td>@item.fecha_registro</td>
+                    <td>@item.detalle</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" onclick="Editar(@item.id_producto)">Actualizar</a>
+                        <a class="btn btn-danger btn-sm" onclick="Confirm(@item.id_producto)">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <input type="hidden" id="productoId" />
+    <input type="hidden" id="accion" value="0" />
+
+    <script src="~/Scripts/script_productos.js"></script>
